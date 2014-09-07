@@ -5,12 +5,25 @@
 		<link rel="stylesheet" type="text/css" href="../resources/css/default.css" />
 		<link rel="stylesheet" type="text/css" href="../resources/css/component.css" />
 		<script src="../resources/js/modernizr.custom.js"></script>
+	<!-- Full calendar Start-->	
+	<link href="../resources/css/fullcalendar.css" rel="stylesheet">
+	<link href="../resources/css/fullcalendar.print.css" rel="stylesheet" media="print">
+
+	<!--jQuery-->
+	<script src="../resources/js/jquery-1.10.2.js"></script>
+	<script src="../resources/js/jquery-ui-1.10.2.custom.min.js"></script>
+	<script src="../resources/js/jquery-ui.js"></script>
+
+	<!--FullCalendar-->
+	<script src="../resources/js/fullcalendar.min.js"></script>
+	<!-- Full calendar Ends-->
 	</head>
-	<body>
+		<body>
 
 		<div class="container">
 
 			<ul id="cbp-tm-menu" class="cbp-tm-menu">
+				<li><a href="javascript:;" style="text-decoration: blink;">EMR System</a></li>
 				<li>
 					<a href="#">Home</a>
 				</li>
