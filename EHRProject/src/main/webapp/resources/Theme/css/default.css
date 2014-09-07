@@ -1,0 +1,77 @@
+/* General Blueprint Style */
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@font-face {
+	font-family: 'bpicons';
+	src:url('../fonts/bpicons/bpicons.eot');
+	src:url('../fonts/bpicons/bpicons.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/bpicons/bpicons.woff') format('woff'),
+		url('../fonts/bpicons/bpicons.ttf') format('truetype'),
+		url('../fonts/bpicons/bpicons.svg#bpicons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+} /* Made with http://icomoon.io/ */
+
+*, *:after, *:before { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+body, html { font-size: 100%; padding: 0; margin: 0; height: 100%;}
+
+/* Clearfix hack by Nicolas Gallagher: http://nicolasgallagher.com/micro-clearfix-hack/ */
+.clearfix:before, .clearfix:after { content: " "; display: table; }
+.clearfix:after { clear: both; }
+
+body {
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+    color: #47a3da;
+    
+}
+
+a {
+	color: #f0f0f0;
+	outline: none;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #000;
+}
+
+.container > header {
+	width: 90%;
+	max-width: 69em;
+	margin: 0 auto;
+	z-index: 1000;
+	position: relative;
+	padding: 2.875em 1.875em 1.875em;
+}
+
+.container {
+	
+	position: relative;
+}
+
+.filler-below1{
+	background: #85caf4;
+	clear: both;
+	position: relative;
+	z-index: -1;
+	height:85%;
+
+}
+
+.filler-above1{
+	position: relative;
+	z-index: -1;
+	height:6%;
+
+}
+
+@media screen and (max-height: 25.25em), screen and (max-width: 44.3125em) {
+
+	.filler-above,
+	.filler-below1 {
+		position: relative;
+		background: #f0f0f0;
+		height: auto;
+		width:100%;
+	}
+
+}
