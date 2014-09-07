@@ -20,7 +20,7 @@ body, html { font-size: 100%; padding: 0; margin: 0; height: 100%;}
 
 body {
     font-family: 'Lato', Calibri, Arial, sans-serif;
-    color: #47a3da;
+    color: white;
     
 }
 
@@ -34,25 +34,17 @@ a:hover {
 	color: #000;
 }
 
-.container > header {
-	width: 90%;
-	max-width: 69em;
-	margin: 0 auto;
-	z-index: 1000;
-	position: relative;
-	padding: 2.875em 1.875em 1.875em;
-}
-
 .container {
 	
 	position: relative;
+	z-index: 1000;
 }
 
 .filler-below1{
 	background: #85caf4;
 	clear: both;
 	position: relative;
-	z-index: -1;
+	z-index: 1;
 	height:85%;
 
 }
