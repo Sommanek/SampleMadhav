@@ -1,6 +1,7 @@
 package com.EHR.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,7 +28,7 @@ public class Patient implements Serializable{
 	private String patientLastName;
 	
 	@Column(name="DateOfBirth")
-	private String dateOfBirth;
+	private Date dateOfBirth;
 	
 	@Column(name="Sex")
 	private String sex;
@@ -80,11 +81,11 @@ public class Patient implements Serializable{
 		this.patientLastName = patientLastName;
 	}
 
-	public String getDateOfBirth() {
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(String dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
