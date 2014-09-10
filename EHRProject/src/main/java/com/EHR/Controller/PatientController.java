@@ -1,10 +1,19 @@
 package com.EHR.Controller;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import com.EHR.Service.PatientService;
 import com.EHR.bean.Patient;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +24,13 @@ public class PatientController
 {
   @Autowired
   PatientService patientService;
+  
+  @InitBinder
+  protected void initBinder(WebDataBinder webDataBinder){
+	  SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+	  dateFormat.setLenient(false);
+	  webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+  }
   
   @RequestMapping({"/addPatient"})
   public String addPatient(ModelMap map)
@@ -37,19 +53,25 @@ public class PatientController
   @RequestMapping({"/patientAddEditSubmit"})
   public String submitPatient(ModelMap map, @ModelAttribute("patient") Patient patient)
   {
-    this.patientService.savePatient(patient);
-    return "";
+    patientService.savePatient(patient);
+    return "AddPatient";
   }
   
   @RequestMapping({"/searchPatient"})
   public String searchPatient(ModelMap map)
   {
-    return "SearchPatient";
+	  Patient patient = new Patient();
+	  map.put("patient", patient);
+	    
+	  return "SearchPatient";
   }
   
   @RequestMapping({"/searchPatientResult"})
-  public String searchPatientResult(ModelMap map)
+  public String searchPatientResult(ModelMap map, @ModelAttribute Patient patient)
   {
+	List<Patient> patientList = new ArrayList<Patient>();
+	
+	patientService.getPatientList(patient);
     return "SearchPatientResult";
   }
   
