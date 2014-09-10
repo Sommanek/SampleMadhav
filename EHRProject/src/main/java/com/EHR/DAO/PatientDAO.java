@@ -7,6 +7,8 @@ public abstract interface PatientDAO
 {
   public abstract List<Patient> getPatientList();
   
+  public abstract List<Patient> getPatientList(Patient patient);
+  
   public abstract void savePatient(Patient paramPatient);
   
   public abstract Patient getPatient(String paramString);
