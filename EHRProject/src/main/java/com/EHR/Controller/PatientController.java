@@ -71,7 +71,9 @@ public class PatientController
   {
 	List<Patient> patientList = new ArrayList<Patient>();
 	
-	patientService.getPatientList(patient);
+	patientList = patientService.getPatientList(patient);
+	
+	map.addAttribute("patientList", patientList);
     return "SearchPatientResult";
   }
   
