@@ -17,10 +17,28 @@ public class PatientServiceImple
   
   public List<Patient> getPatientList()
   {
-    List<Patient> patientList = new ArrayList();
+    List<Patient> patientList = new ArrayList<Patient>();
     try
     {
-      patientList = this.patientDAO.getPatientList();
+      patientList = patientDAO.getPatientList();
+      return patientList;
+    }
+    finally
+    {
+      if (patientList != null)
+      {
+        patientList.clear();
+        patientList = null;
+      }
+    }
+  }
+  
+  public List<Patient> getPatientList(Patient patient)
+  {
+    List<Patient> patientList = new ArrayList<Patient>();
+    try
+    {
+      patientList = patientDAO.getPatientList(patient);
       return patientList;
     }
     finally
@@ -35,20 +53,20 @@ public class PatientServiceImple
   
   public void savePatient(Patient patient)
   {
-    this.patientDAO.savePatient(patient);
+    patientDAO.savePatient(patient);
   }
   
   public Patient getPatient(String id)
   {
     Patient patient = new Patient();
     
-    patient = this.patientDAO.getPatient(id);
+    patient = patientDAO.getPatient(id);
     
     return patient;
   }
   
   public void deletePatient(String id)
   {
-    this.patientDAO.deletePatient(id);
+    patientDAO.deletePatient(id);
   }
 }

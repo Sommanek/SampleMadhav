@@ -7,6 +7,8 @@ public abstract interface PatientService
 {
   public abstract List<Patient> getPatientList();
   
+  public abstract List<Patient> getPatientList(Patient patient);
+  
   public abstract void savePatient(Patient paramPatient);
   
   public abstract Patient getPatient(String paramString);
