@@ -15,6 +15,12 @@
 		<property name="use_sql_comments">true</property> -->
 		
 		<mapping class="com.EHR.bean.Patient"></mapping>
+		<mapping class="com.EHR.bean.TemplateField"></mapping>
+		<mapping class="com.EHR.bean.TemplateMasterBean"></mapping>
+		<mapping class="com.EHR.bean.ElementBean"></mapping>
+		<mapping class="com.EHR.bean.TemplateDetailBean"></mapping>
+		<mapping class="com.EHR.bean.PDCTTemplateMOU"></mapping>
+		<mapping class="com.EHR.bean.CaseDocsBean"></mapping>
 	
 	</session-factory> 
 	

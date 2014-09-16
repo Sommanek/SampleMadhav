@@ -35,20 +35,9 @@ public class PatientServiceImple
   
   public List<Patient> getPatientList(Patient patient)
   {
-    List<Patient> patientList = new ArrayList<Patient>();
-    try
-    {
+	  List<Patient> patientList = new ArrayList<Patient>();
       patientList = patientDAO.getPatientList(patient);
       return patientList;
-    }
-    finally
-    {
-      if (patientList != null)
-      {
-        patientList.clear();
-        patientList = null;
-      }
-    }
   }
   
   public void savePatient(Patient patient)

@@ -27,10 +27,10 @@ public class PatientDAOImpl extends HibernateDaoSupport  implements PatientDAO
 		this.sessionFactory = factory;
 	}*/
 	
-/*	@Autowired
+	@Autowired
 	public PatientDAOImpl(SessionFactory sess){
 		super.setSessionFactory(sess);
-	}*/
+	}
 	
 	  public List<Patient> getPatientList()
 	  {
@@ -84,8 +84,11 @@ public class PatientDAOImpl extends HibernateDaoSupport  implements PatientDAO
 			  criteria.add(Restrictions.eq("status", 1));
 			  
 			  patientList = criteria.list();
-		  }catch(RuntimeException re){
-			  throw re;
+			  
+			  System.out.println("PATIENTlISTp::"+patientList.size());
+		  }catch(Exception re){
+			  
+			  System.out.println(re);
 		  }finally{
 			  if(session != null){
 				  session.close();
@@ -100,7 +103,7 @@ public class PatientDAOImpl extends HibernateDaoSupport  implements PatientDAO
 		 Session session = sessionFactory.openSession();
 		 
 		 try{
-			session.save(patient);
+			session.saveOrUpdate(patient);
 		 }catch(RuntimeException re){
 			 System.out.println(re);
 			 throw re;
@@ -120,7 +123,7 @@ public class PatientDAOImpl extends HibernateDaoSupport  implements PatientDAO
 	    
 	    try{
 	    	Query query = session.createQuery("from Patient where patientId=:id");
-	    	query.setParameter("id", id);
+	    	query.setParameter("id", Integer.parseInt(id));
 	    	
 	    	listPatient = query.list();
 	    	
@@ -145,7 +148,7 @@ public class PatientDAOImpl extends HibernateDaoSupport  implements PatientDAO
 		  
 		  try{
 			  Query query = session.createQuery("UPDATE Patient set status='0' where patientId=:id");
-			  query.setParameter("id", id);
+			  query.setParameter("id", Integer.parseInt(id));
 			  query.executeUpdate();
 		  }catch(RuntimeException re){
 			  throw re;
