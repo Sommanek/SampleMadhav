@@ -47,13 +47,25 @@ public class PatientController
     
     patient = this.patientService.getPatient(id);
     map.put("patient", patient);
+    map.put("mode", "edit");
     return "AddPatient";
   }
   
   @RequestMapping({"/patientAddEditSubmit"})
   public String submitPatient(ModelMap map, @ModelAttribute("patient") Patient patient)
   {
-    patientService.savePatient(patient);
+	 try{
+		 patient.setStatus(1);
+		 patientService.savePatient(patient);
+    
+		 patient = new Patient();
+		 map.put("patient", patient);
+		 map.put("message", "Patient Added Successfully");
+	 }catch(Exception e){
+		 System.out.println(e);
+		 map.put("message", "Patient cannot be added");
+		 
+	 }
     return "AddPatient";
   }
   
@@ -82,6 +94,6 @@ public class PatientController
   {
     this.patientService.deletePatient(id);
     
-    return "";
+    	return "redirect:/Patient/searchPatient";
   }
 }
