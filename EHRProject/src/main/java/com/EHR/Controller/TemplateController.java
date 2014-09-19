@@ -32,12 +32,16 @@ public class TemplateController {
 		
 		templateMasterBean = templateService.getTemplate(1);
 		mode = templateService.checkTemplateMode(1, apptId);
+		List<Map<String, String>> templateFieldLis = null;
 		
 		if(mode != null && mode.equals("add")){
 			map.addAttribute("mode","add");
 		}else{
 			map.addAttribute("mode","edit");
 			map.addAttribute("caseDocumentId", mode);
+			templateFieldLis = templateService.getPatientTemplateValues(Long.valueOf(1), apptId, mode, "VIT0001");
+			
+			templateService.setValueForEdit(templateMasterBean, templateFieldLis);
 		}
 		
 		Map<Integer, String> templateMOUMap = null;
@@ -97,14 +101,20 @@ public class TemplateController {
 		    String mode = null;
 		    Map<Integer, String> templateMOUMap = null;
 		    String redirectFlag = null;
+		    String templateCode = null;
+		    Long templateId = null;
+		    
+		    List<Map<String, String>> templateFieldLis = null;
 		    
 		    try
 		    {
 		      templateMOUMap = new HashMap<Integer, String>();
 		      appointmentId = request.getParameter("appointmentId");
+		      templateId = Long.valueOf(Long.parseLong(request.getParameter("templateId")));
+		      templateCode = request.getParameter("templateCode");
 		      caseDocumentId = request.getParameter("caseDocumentId");
 		      mode = request.getParameter("mode");
-		      redirectFlag = request.getParameter("redirectFlag");
+		      redirectFlag = request.getParameter("redirectionFlag");
 		      
 		      if ("edit".equalsIgnoreCase(mode)) {
 		    	  templateService.disablePatientTemplate(caseDocumentId, appointmentId);
@@ -121,7 +131,21 @@ public class TemplateController {
 			    if(redirectFlag != null && !redirectFlag.equals("")){
 			    	return "redirect:/Template/"+redirectFlag;
 			    }else{
-			    	map.put("fields", fields);
+			    	if(fields != null && fields.size()>0){
+			    		caseDocumentId = fields.get(0).getCaseDocumentId().toString();
+			    	}
+			    	
+			    	if(templateId.equals(1)){
+			    		redirectFlag = "HPI";
+			    	}else if(templateId.equals(2)){
+			    		redirectFlag = "ROS";
+			    	}else if(templateId.equals(3)){
+			    		redirectFlag = "TRP";
+			    	}
+			    	
+			    	templateFieldLis = templateService.getPatientTemplateValues(templateId, appointmentId, caseDocumentId, templateCode);
+			    	map.put("fields", templateFieldLis);
+			    	map.put("redirectFlag", redirectFlag);
 			    }
 		    }finally{
 		    	

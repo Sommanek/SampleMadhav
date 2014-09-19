@@ -93,4 +93,10 @@ public class TemplateField {
 	public void setGroupIndex(Integer groupIndex) {
 		this.groupIndex = groupIndex;
 	}
+	
+/*	SELECT PTFT.appointmentId, PTFT.caseDocumentId, PTFT.templateId, PTFT.templateCode, PTFT.fieldName,PTDT.elementName, PTDT.unitId, PTFT.fieldValue, 
+	FROM TemplateDetailTable PTDT
+	INNER JOIN TemplateField PTFT ON PTDT.templateId = PTFT.templateId  AND (PTDT.elementCode = PTFT.fieldName) 
+	WHERE PTFT.TemplateId = :templateId AND PTFT.appointmentId = :appointmentId AND PTFT.caseDocumentId = :caseDocumentId AND templateCode = :templateCode 
+	Order By TemplateFieldId*/
 }

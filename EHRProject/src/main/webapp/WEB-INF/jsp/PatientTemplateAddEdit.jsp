@@ -41,6 +41,8 @@
 		<input type="hidden" name="templateName" id="templateName" value="${templateMasterBean.templateName}">
 		<input type="hidden" name="templateCode" id="templateCode" value="${templateMasterBean.templateCode}">
 		<input type="hidden" name="appointmentId" id="appointmentId" value="${AppointmentId}">
+		<input type="hidden" name="apptId" id="apptId" value="${AppointmentId}">
+		<input type="hidden" name="templateCategoryId" id="templateCategoryId" value="${templateMasterBean.templateCategoryId }">
 		<input type="hidden" name="redirectionFlag" id="redirectionFlag" value="save">
 		<input type="hidden" name="caseDocumentId" id="caseDocumentId" value="${caseDocumentId}">
 		
@@ -92,7 +94,9 @@
 			<tr>
 				<td colspan="2" style="margin-left: 20%">
 					<input type="button" value="Save" onclick="javascript: SaveAndGoTo('save')">
+					<c:if test="${redirectFlag ne null }">
 					<input type="button" value="Save & Go to ${redirectFlag}" onclick="javascript: SaveAndGoTo('${redirectFlag}')">
+					</c:if>
 				</td>
 			</tr>
 			

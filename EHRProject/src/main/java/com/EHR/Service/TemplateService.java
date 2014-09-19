@@ -21,5 +21,9 @@ public interface TemplateService {
 	 public void insertTemplateFieldValue(List<TemplateField> fieldList);
 	 
 	 public String checkTemplateMode(int category, String appointmentId);
+	 
+	 public List<Map<String, String>> getPatientTemplateValues(Long templateId,String appointmentId,String caseDocumentId,String templateCode);
+	 
+	 public void setValueForEdit(TemplateMasterBean templateMasterBean, List<Map<String, String>> templateFieldLis);
 
 }

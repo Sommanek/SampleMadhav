@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.EHR.DAO.TemplateDAO;
 import com.EHR.Service.TemplateService;
 import com.EHR.bean.PDCTTemplateMOU;
+import com.EHR.bean.TemplateDetailBean;
 import com.EHR.bean.TemplateField;
 import com.EHR.bean.TemplateMasterBean;
 
@@ -114,6 +115,35 @@ public class TemplateServiceImpl implements TemplateService{
 	public String checkTemplateMode(int category, String appointmentId) {
 
 		return templateDAO.checkTemplateMode(category,appointmentId);
+	}
+
+	public List<Map<String, String>> getPatientTemplateValues(Long templateId, String appointmentId, String caseDocumentId, String templateCode) {
+
+		return templateDAO.getPatientTemplateValues(templateId, appointmentId, caseDocumentId, templateCode);
+	}
+
+	public void setValueForEdit(TemplateMasterBean templateMasterBean, List<Map<String, String>> templateFieldLis) {
+
+		List<TemplateDetailBean> detailList = templateMasterBean.getTemplateDetails();
+		Map<String, String> valueMap = new HashMap<String, String>();
+		TemplateDetailBean templateDetailBean = null;
+		
+		if(detailList!=null && detailList.size()>0 && templateFieldLis!=null && templateFieldLis.size()>0){
+			
+			for(int i=0;i<detailList.size(); i++){
+				
+				templateDetailBean = detailList.get(i);
+				
+				for(int j=0; j<templateFieldLis.size(); j++){
+					valueMap = templateFieldLis.get(j);
+					
+					if(valueMap.get("fieldName").equals(templateDetailBean.getElementCode())){
+						templateDetailBean.setDefaultValue(valueMap.get("fieldValue"));
+					}
+				}
+				
+			}
+		}
 	}
 
 }

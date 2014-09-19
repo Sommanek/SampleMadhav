@@ -2,7 +2,9 @@ package com.EHR.DAOImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,7 +30,8 @@ public class TemplateDAOImpl extends HibernateDaoSupport implements TemplateDAO{
 
 	public TemplateMasterBean getTemplate(int categoryId) {
 
-		Session session = getHibernateTemplate().getSessionFactory().openSession();
+		//Session session = getHibernateTemplate().getSessionFactory().openSession();
+		Session session = getSession();
 		
 		try{
 			Query query = session.createQuery("from TemplateMasterBean where templateCategoryId=:id");
@@ -39,15 +42,15 @@ public class TemplateDAOImpl extends HibernateDaoSupport implements TemplateDAO{
 		}catch(RuntimeException re){
 			throw re;
 		}finally{
-			if(session != null) session.close();
+			//if(session != null) session.close();
 		}
 		
 	}
 
 	public List<PDCTTemplateMOU> createUnitMap1() {
 		
-		Session session = getHibernateTemplate().getSessionFactory().openSession();
-		
+		//Session session = getHibernateTemplate().getSessionFactory().openSession();
+		Session session = getSession();
 		    try
 		    {
 		      String queryString = "from PDCTTemplateMOU";
@@ -59,14 +62,15 @@ public class TemplateDAOImpl extends HibernateDaoSupport implements TemplateDAO{
 		    {
 		      throw re;
 		    }finally{
-		    	if(session != null) session.close();
+		    	//if(session != null) session.close();
 		    }
 	}
 
 	public Long saveCaseDocs(String caseDocumentId, String appointmentId, String templateId, String templateCategoryId) {
 		
 		Transaction tx = null;
-		Session session = getHibernateTemplate().getSessionFactory().openSession();
+		//Session session = getHibernateTemplate().getSessionFactory().openSession();
+		Session session = getSession();
 		CaseDocsBean caseDocsBean = null;
 		Long caseDocId = 1l;
 		
@@ -89,7 +93,7 @@ public class TemplateDAOImpl extends HibernateDaoSupport implements TemplateDAO{
 			throw re;
 		}finally{
 			tx= null;
-			session.close();
+			//session.close();
 		}
 
 	}
@@ -97,7 +101,8 @@ public class TemplateDAOImpl extends HibernateDaoSupport implements TemplateDAO{
 	public boolean disablePatientTemplate(String caseDocumentId, String appointmentId) {
 		
 		boolean flag = false;
-		Session session = getHibernateTemplate().getSessionFactory().openSession();
+		//Session session = getHibernateTemplate().getSessionFactory().openSession();
+		Session session = getSession();
 		
 		try{
 			
@@ -140,7 +145,8 @@ public class TemplateDAOImpl extends HibernateDaoSupport implements TemplateDAO{
 
 	public String checkTemplateMode(int category, String appointmentId) {
 
-		Session session = getHibernateTemplate().getSessionFactory().openSession();
+		//Session session = getHibernateTemplate().getSessionFactory().openSession();
+		Session session = getSession();
 		List<CaseDocsBean> caseBeanList = new ArrayList<CaseDocsBean>();
 		
 		try{
@@ -161,6 +167,27 @@ public class TemplateDAOImpl extends HibernateDaoSupport implements TemplateDAO{
 		}
 		
 		return null;
+	}
+
+	public List<Map<String, String>> getPatientTemplateValues(Long templateId, String appointmentId, String caseDocumentId, String templateCode) {
+
+		List<Map<String, String>> listOfValues = null;
+		Session session = getSession();
+		
+		System.out.println(templateId+"  "+appointmentId+"  "+caseDocumentId+" "+templateCode);
+		
+		try{
+			Query query = session.createSQLQuery(" SELECT PTFT.appointmentId, PTFT.caseDocumentId, PTFT.templateId, PTFT.templateCode, PTFT.fieldName,PTDT.elementName, PTDT.unitId, PTFT.fieldValue FROM TemplateDetailTable PTDT INNER JOIN TemplateField PTFT ON PTDT.templateId = PTFT.templateId  AND (PTDT.elementCode = PTFT.fieldName) WHERE PTFT.TemplateId = :templateId AND PTFT.appointmentId = :appointmentId AND PTFT.caseDocumentId = :caseDocumentId AND templateCode = :templateCode Order By TemplateFieldId");
+		      query.setParameter("templateId", templateId);
+		      query.setParameter("appointmentId", appointmentId);
+		      query.setParameter("caseDocumentId", caseDocumentId);
+		      query.setParameter("templateCode", templateCode);
+		      query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+		      listOfValues = query.list();
+		}catch(Exception re){
+			re.printStackTrace();
+		}
+		return listOfValues;
 	}
 
 }
